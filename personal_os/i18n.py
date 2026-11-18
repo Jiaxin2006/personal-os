@@ -4,7 +4,10 @@ The app sets PERSONAL_OS_LANGUAGE to "en" when macOS prefers English. Messages
 are written in Chinese and looked up here; anything missing stays Chinese, and
 tests/test_i18n.py fails when a Chinese string has no entry.
 """
+from functools import lru_cache
+import json
 import os
+from pathlib import Path
 
 
 def english():
@@ -13,6 +16,62 @@ def english():
 
 def _(text):
     return EN.get(text, text) if english() else text
+
+
+def profile_items(profile):
+    yield ('profile', profile.get('profile_id')), profile
+    for group in ('categories', 'goals', 'task_templates'):
+        for item in profile.get(group, []):
+            yield (group, item['id']), item
+
+
+@lru_cache(maxsize=1)
+def default_items():
+    profile = json.loads(Path(__file__).with_name('initial_profile.json').read_text(encoding='utf-8'))
+    return dict(profile_items(profile))
+
+
+def plan_text(identity, field, value):
+    original = default_items().get(identity, {}).get(field)
+    if original is not None and value in (original, EN.get(original)):
+        return _(original)
+    return value
+
+
+def translate_item(identity, item):
+    for field in ('name', 'description'):
+        if field in item:
+            item[field] = plan_text(identity, field, item[field])
+
+
+def restore_profile_labels(profile, previous):
+    """Keep the stored spelling when an editor sends back a translated default."""
+    originals = dict(profile_items(previous))
+    for identity, item in profile_items(profile):
+        prior = originals.get(identity, {})
+        for field in ('name', 'description'):
+            if field in item and field in prior and item[field] == plan_text(identity, field, prior[field]):
+                item[field] = prior[field]
+
+
+def translate_snapshot(snapshot):
+    def translate_statistics(statistics):
+        for group, key in (('goals', 'goals'), ('categories', 'category_totals')):
+            for item in statistics.get(key, []):
+                translate_item((group, item['id']), item)
+
+    for identity, item in profile_items(snapshot['profile']):
+        translate_item(identity, item)
+    translate_statistics(snapshot['statistics'])
+    for task in snapshot['tasks']:
+        identity = ('task_templates', task['template_id'])
+        translate_item(identity, task)
+        translate_item(identity, task['template'])
+    for review in snapshot['reviews']:
+        for identity, item in profile_items(review['profile']):
+            translate_item(identity, item)
+        translate_statistics(review['statistics'])
+    return snapshot
 
 
 EN = {

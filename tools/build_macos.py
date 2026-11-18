@@ -97,8 +97,8 @@ def build(output, allow_missing_translations=False, *, local_gallery=False, with
             'CFBundleDevelopmentRegion': 'en', 'CFBundleLocalizations': ['en', 'zh-Hans'],
             'CFBundleExecutable': 'PersonalOS', 'CFBundleIdentifier': 'local.personalos.desktop',
             'CFBundleName': 'Personal OS', 'CFBundleDisplayName': 'Personal OS', 'CFBundleIconFile': 'AppIcon.icns',
-            'CFBundlePackageType': 'APPL', 'CFBundleShortVersionString': '0.1.3',
-            'CFBundleVersion': '4', 'LSMinimumSystemVersion': '13.0',
+            'CFBundlePackageType': 'APPL', 'CFBundleShortVersionString': '0.1.4',
+            'CFBundleVersion': '5', 'LSMinimumSystemVersion': '13.0',
             'LSUIElement': False,
             'NSHighResolutionCapable': True, 'LSApplicationCategoryType': 'public.app-category.productivity',
         }

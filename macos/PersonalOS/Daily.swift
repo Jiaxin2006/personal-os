@@ -10,7 +10,7 @@ struct Poem: Decodable {
     let dynasty: String
     let season: String?
     let name: String?
-    // English interface: a translation under the original, and the names in English.
+    // English interface: use the translation and English attribution.
     let translation: [String]?
     let title_en: String?
     let name_en: String?
@@ -195,12 +195,14 @@ struct PoemLines: View {
     let poem: Poem
     let size: CGFloat
     var body: some View {
-        VStack(alignment: .leading, spacing: size * 0.45) {
-            ForEach(Array(poem.lines.enumerated()), id: \.offset) { _, line in Text(line).font(Theme.verse(size)) }
-            if appUsesEnglish, let translation = poem.translation {
-                VStack(alignment: .leading, spacing: size * 0.16) {
-                    ForEach(Array(translation.enumerated()), id: \.offset) { _, line in Text(line).font(Theme.serif(size * 0.52, weight: .regular)).italic() }
-                }.opacity(0.88)
+        let lines = appUsesEnglish ? poem.translation ?? poem.lines : poem.lines
+        VStack(alignment: .leading, spacing: size * (appUsesEnglish ? 0.22 : 0.45)) {
+            ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
+                if appUsesEnglish {
+                    Text(line).font(.system(size: size * 0.82, weight: .regular, design: .serif)).italic()
+                } else {
+                    Text(line).font(Theme.verse(size))
+                }
             }
         }
     }
@@ -211,7 +213,7 @@ struct DailyHero: View {
     let inspiration: Inspiration
     let open: () -> Void
     var body: some View {
-        Color.clear.frame(height: appUsesEnglish ? 270 : 236)
+        Color.clear.frame(height: 236)
             .overlay(Artwork(image: inspiration.image))
             .overlay(LinearGradient(stops: [.init(color: .black.opacity(0.66), location: 0), .init(color: .black.opacity(0.32), location: 0.5),
                                             .init(color: .black.opacity(0.05), location: 1)], startPoint: .leading, endPoint: .trailing))

@@ -1,8 +1,22 @@
-# Personal OS
+<p align="center"><img src="assets/icons/AppIcon.png" width="96" alt="Personal OS 图标"></p>
+<h1 align="center">Personal OS</h1>
+<p align="center"><strong>记录每天的投入，用一周回看进展。</strong></p>
+<p align="center">
+  <a href="https://github.com/Jiaxin2006/personal-os/releases/latest/download/Personal-OS-macos-arm64.zip"><strong>下载 macOS 版</strong></a>
+  · <a href="https://github.com/Jiaxin2006/personal-os/releases/latest">版本说明</a>
+  · <a href="README.en.md">English</a>
+</p>
+<p align="center">Apple 芯片 · macOS 13+ · 在本机运行</p>
 
-[English](README.en.md) · [下载 macOS 版](https://github.com/Jiaxin2006/personal-os/releases/latest)
+![Personal OS 总览，显示每日诗画、本周投入、有效天数与目标进度](docs/demo/dashboard-zh-Hans.jpg)
 
-Personal OS 是一款本地优先的 macOS 时间管理应用，帮你记录每天的投入，并用一周为单位回顾进展。
+## 实机演示
+
+总览将一周的投入时长、有效天数和目标进度放在同一屏。下面两张图展示每天的诗画开场，以及可以对照数据撰写的周复盘。画面使用示例数据。
+
+| 每日诗画 | 周度复盘 |
+| --- | --- |
+| [![每日开屏显示梵高《麦田与柏树》和杜甫《望岳》的诗句](docs/demo/opening-zh-Hans.jpg)](docs/demo/opening-zh-Hans.jpg) | [![周复盘显示本周统计、示例笔记和下一周的调整](docs/demo/review-zh-Hans.jpg)](docs/demo/review-zh-Hans.jpg) |
 
 ## 核心功能
 

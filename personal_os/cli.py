@@ -13,7 +13,7 @@ from zoneinfo import ZoneInfo
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from personal_os import backup, domain, legacy, reviews, timer_bridge
-from personal_os.i18n import _
+from personal_os.i18n import _, restore_profile_labels, translate_snapshot
 
 
 def has_ledger(path):
@@ -130,12 +130,13 @@ def dispatch(request):
         if action == 'snapshot':
             # Also catches added time from before the bar counted it, or from a restored backup.
             _mirror_manual(db, data)
-            return snapshot(db, profile, data, request.get('week_start'))
+            return translate_snapshot(snapshot(db, profile, data, request.get('week_start')))
         if action == 'save_profile':
             proposed = request['profile']
             reviews.validate_templates(proposed.get('task_templates', []))
             # Validate and check compatibility before committing configuration.
             domain.validate_profile(proposed)
+            restore_profile_labels(proposed, profile)
             installed = data.parent / 'plugins/timer.py'
             if installed.exists() and 'PERSONAL_OS_TIMER_API = ' not in installed.read_text(encoding='utf-8'):
                 raise ValueError(_('请先升级共享计时插件再修改类别；原数据仍可查看。'))

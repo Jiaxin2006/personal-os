@@ -1,8 +1,22 @@
-# Personal OS
+<p align="center"><img src="assets/icons/AppIcon.png" width="96" alt="Personal OS app icon"></p>
+<h1 align="center">Personal OS</h1>
+<p align="center"><strong>Track your time and review your progress, week by week.</strong></p>
+<p align="center">
+  <a href="https://github.com/Jiaxin2006/personal-os/releases/latest/download/Personal-OS-macos-arm64.zip"><strong>Download for macOS</strong></a>
+  · <a href="https://github.com/Jiaxin2006/personal-os/releases/latest">Release notes</a>
+  · <a href="README.md">Chinese</a>
+</p>
+<p align="center">Apple silicon · macOS 13+ · Runs locally</p>
 
-[简体中文](README.md) · [Download for macOS](https://github.com/Jiaxin2006/personal-os/releases/latest)
+![Personal OS overview showing artwork, weekly hours, qualifying days, and goal progress](docs/demo/dashboard-en.jpg)
 
-Personal OS is a local-first macOS app for recording where your time goes and reviewing your progress week by week.
+## See it in action
+
+The overview puts weekly hours, qualifying days, and goal progress on one screen. The two views below show the daily opening and a weekly review alongside its totals. All records shown are sample data.
+
+| Daily opening | Weekly review |
+| --- | --- |
+| [![Daily opening with Van Gogh's Wheat Field with Cypresses and a translated seasonal poem](docs/demo/opening-en.jpg)](docs/demo/opening-en.jpg) | [![Weekly review with sample notes and a plan for the following week](docs/demo/review-en.jpg)](docs/demo/review-en.jpg) |
 
 ## Highlights
 

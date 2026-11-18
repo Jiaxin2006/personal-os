@@ -52,14 +52,16 @@ class TranslationTableTests(unittest.TestCase):
 
 
 class LanguageTests(unittest.TestCase):
-    def request(self, language, payload):
-        with tempfile.TemporaryDirectory() as folder:
-            (Path(folder) / 'bar').mkdir()
-            env = dict(os.environ, HOME=folder, PERSONAL_OS_DATA_DIR=folder + '/app', SKETCHYBAR_DATA_DIR=folder + '/bar',
-                       PERSONAL_OS_NO_BAR='1', PERSONAL_OS_LANGUAGE=language)
-            result = subprocess.run([sys.executable, str(PROJECT / 'personal_os/cli.py')], input=json.dumps(payload),
-                                    text=True, capture_output=True, cwd=PROJECT, env=env, timeout=20)
-            return json.loads(result.stdout)
+    def request(self, language, payload, folder=None):
+        if folder is None:
+            with tempfile.TemporaryDirectory() as temporary:
+                return self.request(language, payload, temporary)
+        (Path(folder) / 'bar').mkdir(exist_ok=True)
+        env = dict(os.environ, HOME=folder, PERSONAL_OS_DATA_DIR=folder + '/app', SKETCHYBAR_DATA_DIR=folder + '/bar',
+                   PERSONAL_OS_NO_BAR='1', PERSONAL_OS_LANGUAGE=language)
+        result = subprocess.run([sys.executable, str(PROJECT / 'personal_os/cli.py')], input=json.dumps(payload),
+                                text=True, capture_output=True, cwd=PROJECT, env=env, timeout=20)
+        return json.loads(result.stdout)
 
     def test_new_plan_and_errors_in_english(self):
         profile = self.request('en', {'action': 'snapshot'})['profile']
@@ -74,6 +76,34 @@ class LanguageTests(unittest.TestCase):
         profile = self.request('', {'action': 'snapshot'})['profile']
         self.assertEqual(profile['name'], '我的每周计划')
         self.assertEqual(self.request('zh', {'action': 'no-such-action'})['error'], '未知操作')
+
+    def test_existing_builtin_labels_follow_the_language_without_rewriting_profile(self):
+        with tempfile.TemporaryDirectory() as workspace:
+            def request(language, action, **payload):
+                return self.request(language, dict(action=action, **payload), workspace)
+
+            chinese = request('zh', 'snapshot')
+            profile = chinese['profile']
+            profile['categories'][0]['name'] = '自定科研'
+            self.assertTrue(request('zh', 'save_profile', profile=profile)['ok'])
+            self.assertTrue(request('zh', 'save_review', week_start=chinese['week_start'],
+                                    text='示例复盘', completed=True)['ok'])
+
+            english = request('en', 'snapshot')
+            profile = english['profile']
+            self.assertEqual(profile['name'], 'My weekly plan')
+            self.assertEqual(profile['categories'][0]['name'], '自定科研')
+            self.assertIn('Reading', [item['name'] for item in profile['categories']])
+            self.assertIn('Total work', [goal['name'] for goal in english['statistics']['goals']])
+            self.assertIn('Weekly time review', [task['name'] for task in english['tasks']])
+            review = english['reviews'][0]
+            self.assertEqual(review['text'], '示例复盘')
+            self.assertIn('Total work', [goal['name'] for goal in review['statistics']['goals']])
+
+            self.assertTrue(request('en', 'save_profile', profile=profile)['ok'])
+            restored = request('zh', 'snapshot')
+            self.assertEqual(restored['profile']['revision'], profile['revision'])
+            self.assertIn('总工作投入', [goal['name'] for goal in restored['statistics']['goals']])
 
 
 if __name__ == '__main__':
