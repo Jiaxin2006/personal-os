@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key> · 目标 %lld 天</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string> · goal %#@days@</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld day</string>
+			<key>other</key>
+			<string>%lld days</string>
+		</dict>
+	</dict>
+	<key>%@ · 截止前 %lld 天开始提醒</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$@ · reminder %2$#@days@ before due</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld day</string>
+			<key>other</key>
+			<string>%2$lld days</string>
+		</dict>
+	</dict>
+	<key>%lld / %lld 天</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$lld / %2$#@days@</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%2$lld day</string>
+			<key>other</key>
+			<string>%2$lld days</string>
+		</dict>
+	</dict>
+	<key>%lld 个有效投入日</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@days@</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld day on target</string>
+			<key>other</key>
+			<string>%lld days on target</string>
+		</dict>
+	</dict>
+	<key>%lld 天</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@days@</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld day</string>
+			<key>other</key>
+			<string>%lld days</string>
+		</dict>
+	</dict>
+	<key>%lld 项逾期任务</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@tasks@</string>
+		<key>tasks</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld overdue task</string>
+			<key>other</key>
+			<string>%lld overdue tasks</string>
+		</dict>
+	</dict>
+	<key>先试运行 %lld 周</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Trial for %#@weeks@</string>
+		<key>weeks</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld week</string>
+			<key>other</key>
+			<string>%lld weeks</string>
+		</dict>
+	</dict>
+	<key>截止前 %lld 天开始提醒</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Remind %#@days@ before due</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld day</string>
+			<key>other</key>
+			<string>%lld days</string>
+		</dict>
+	</dict>
+	<key>每周 ≥%lld 天，各日累计 ≥%lld 分钟</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>≥%1$#@days@ a week, ≥%2$lld min each</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld day</string>
+			<key>other</key>
+			<string>%1$lld days</string>
+		</dict>
+	</dict>
+	<key>目标 %lld 天，各日累计 %lld 分钟</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Target %1$#@days@, %2$lld min each</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$lld day</string>
+			<key>other</key>
+			<string>%1$lld days</string>
+		</dict>
+	</dict>
+	<key>至少 %lld 个不同日期</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>At least %#@days@</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld day</string>
+			<key>other</key>
+			<string>%lld days</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,19 @@
+# Personal history, exports, and runtime state must remain local.
+data/
+*.sqlite3
+*.sqlite3-*
+*.log
+.DS_Store
+__pycache__/
+*.py[cod]
+.env
+.env.*
+dist/
+*.app/
+personal-os-backups/
+
+# Bundled Python runtime; fetched by tools/fetch_python.py.
+vendor/
+
+# Daily paintings; the list is assets/paintings.json, images come from tools/fetch_paintings.py.
+assets/paintings/

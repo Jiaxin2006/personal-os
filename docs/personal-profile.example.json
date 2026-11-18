@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "profile_id": "default",
+  "name": "我的每周计划",
+  "timezone": "Asia/Shanghai",
+  "week_starts_on": "monday",
+  "categories": [
+    {"id": "research", "bar_label": "Research", "name": "科研", "counts_as_work": true, "archived": false},
+    {"id": "course", "bar_label": "Study", "name": "课程学习", "counts_as_work": true, "archived": false},
+    {"id": "social", "bar_label": "Admin", "name": "行政与杂务", "counts_as_work": true, "archived": false},
+    {"id": "other_work", "bar_label": "Misc", "name": "其他工作", "counts_as_work": true, "archived": false},
+    {"id": "reading", "bar_label": "Reading", "name": "阅读", "counts_as_work": false, "archived": false},
+    {"id": "uncategorized", "bar_label": "Untagged", "name": "未分类", "counts_as_work": false, "archived": false}
+  ],
+  "goals": [
+    {
+      "id": "total-work-weekly", "name": "总工作投入", "period": "week",
+      "kind": "minimum_duration", "strength": "hard",
+      "filter": {"counts_as_work": true}, "minimum_seconds": 72000
+    },
+    {
+      "id": "research-weekly-duration", "name": "科研投入", "period": "week",
+      "kind": "minimum_duration", "strength": "hard",
+      "filter": {"category_ids": ["research"]}, "minimum_seconds": 36000
+    },
+    {
+      "id": "research-weekly-frequency", "name": "科研天数", "period": "week",
+      "kind": "frequency", "strength": "hard",
+      "filter": {"category_ids": ["research"]},
+      "minimum_distinct_days": 4, "minimum_daily_seconds": 5400,
+      "daily_aggregation": "sum", "day_boundary": "local_midnight"
+    },
+    {
+      "id": "course-weekly-range", "name": "课程学习", "period": "week",
+      "kind": "duration_range", "strength": "flexible",
+      "filter": {"category_ids": ["course"]}, "minimum_seconds": 14400, "maximum_seconds": 21600
+    },
+    {
+      "id": "service-weekly-ceiling", "name": "行政与杂务上限", "period": "week",
+      "kind": "maximum_duration", "strength": "flexible",
+      "filter": {"category_ids": ["social"]}, "maximum_seconds": 18000
+    },
+    {
+      "id": "other-work-observe", "name": "其他工作记录", "period": "week",
+      "kind": "observe", "strength": "observe", "filter": {"category_ids": ["other_work"]}
+    },
+    {
+      "id": "reading-weekly-frequency", "name": "阅读天数", "period": "week",
+      "kind": "frequency", "strength": "flexible",
+      "filter": {"category_ids": ["reading"]},
+      "minimum_distinct_days": 3, "minimum_daily_seconds": 1800,
+      "daily_aggregation": "sum", "day_boundary": "local_midnight"
+    }
+  ],
+  "task_templates": [
+    {
+      "id": "weekly-time-review", "name": "每周时间复盘", "category": "review",
+      "description": "比较投入时长与有效天数，写下本周偏差及下周调整。",
+      "enabled": true, "starts_on": null,
+      "recurrence": {"kind": "weekly", "weekday": "sunday"},
+      "visibility": {"kind": "calendar_days_ending_on_due", "days": 1},
+      "deadline": {"kind": "recurrence_date_end"},
+      "review_template": "weekly_time"
+    },
+    {
+      "id": "monthly-review", "name": "月度复盘", "category": "review",
+      "description": "回看这个月的投入，写下值得保留和需要调整的地方。",
+      "enabled": true, "starts_on": null,
+      "recurrence": {"kind": "monthly", "day": "last"},
+      "visibility": {"kind": "calendar_days_ending_on_due", "days": 7},
+      "deadline": {"kind": "recurrence_date_end"},
+      "review_template": "free_text"
+    },
+    {
+      "id": "quarterly-direction-review", "name": "季度复盘", "category": "review",
+      "description": "回看这一季度的投入和产出，调整下一阶段的重点。",
+      "enabled": true, "starts_on": null,
+      "recurrence": {"kind": "quarterly", "day": "last"},
+      "visibility": {"kind": "calendar_days_ending_on_due", "days": 7},
+      "deadline": {"kind": "recurrence_date_end"},
+      "review_template": "quarterly_direction"
+    }
+  ]
+}
